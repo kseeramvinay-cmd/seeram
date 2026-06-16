@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -21,14 +21,14 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '24.x'
+          node-version: '22.x'
 
       - name: npm install, build, and test
         run: |
           npm install
           npm run build --if-present
           npm run test --if-present
-
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -51,13 +51,13 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5F94E456E0B54D40A9B926BF0B318B16 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_539E7377E46742E38DE0A5A3279A8196 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_239F4E5EFC624782975AC8079CCE6838 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7735B4E35EC44396934C37670C4D218A }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7CCFF49742BE448C8A96FC9BADF2564F }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5298A5F48C9D436F9C890B7A5259E4C4 }}
 
       - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
+        id: deploy-to-webapp
         with:
           app-name: 'Seeram'
           slot-name: 'Production'
